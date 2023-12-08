@@ -6,4 +6,20 @@ For this project, we built an RC surveillance vehicle. The vehicle has a rotatin
 ### Demo Video
 ## Hardware Platform
 ## Software Platform
+
+**Components:**
+
+the Xbox establishes a connection to the user's laptop via a 2.4G connection. The user utilizes a driver to acquire button information from the Xbox, where the values of **two joysticks** range from -1 to 1, and **two buttons** have binary states (pressed: 1, not pressed: 0). The driver processes the obtained Xbox information, logically interpreting user actions. The button values are then converted into a string and transmitted via TCP to the Raspberry Pi. The user sends data to the Pi at a rate of 30 transmissions per second.
+
+
+
+
+
+### Software Block Diagram
+
+![](./Pictures/software.jpg)
+
+
+
 ## Limitations / Possible Improvements
+
