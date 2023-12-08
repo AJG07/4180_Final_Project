@@ -45,17 +45,23 @@ Run the server code on the Raspberry Pi.
 
 On the user's computer, execute the command: `python ./pb_driver.py`.
 
-<img src="./Pictures/ip.png" style="zoom:33%;" />
+<img src="./Pictures/IP.png" style="zoom:33%;" />
 
 If there are no error messages, it indicates that the Raspberry Pi has successfully received the sent string, confirming the successful transmission of signals from the Xbox.
 
 ### Raspberry Pi:
 
-
-
 Server are performed within the Raspberry Pi. You can interact with the Pi using peripherals directly connected to it or utilize remote access methods like VNC Viewer. Ensure that the Raspbian OS is installed on your Pi by following the specific instructions available on the Raspberry Pi website.
 
+Ensure that the Pi and the user's laptop are on the same network. We have provided a **makefile** for the code. You can navigate to the folder and execute the `make` command directly to generate the required executable files. (Note: You need to modify the `server_ip` to the current IP address of the Raspberry Pi.)
 
+<img src="./Pictures/server_ip.png" style="zoom:33%;" />
+
+This code requires a wired connection between the Raspberry Pi and the MBED. Otherwise, an error will occur.
+
+<img src="./Pictures/connect_embed.png" style="zoom:33%;" />
+
+So, first, run the `RobotController.cpp` program on the Pi. Then, run the `pb_driver.py` program on the user's side. The Pi will receive data sent by the user and transmit the data to the MBED through the serial port.
 
 ## Limitations / Possible Improvements
 
