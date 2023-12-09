@@ -35,9 +35,13 @@ A short demo of this project can be seen on [youtube](https://youtu.be/EQbsywy5l
 
 ### Hardware Block Diagram
 
-
+<img src="./Pictures/block diagram.png" style="zoom:33%;" />
 
 ### Hardware Schematic
+
+<img src="./Pictures/schematic.png" style="zoom:33%;" />
+
+audio system and lidar wiring : connect the positive terminal of the speaker to 5 volts. Connect the base of the 2N3904 to the Mbed output pin using a 220 ohm resistor. Connect the negative terminal of the speaker to the collector of the  2N3904 and connect the emitter to the ground.
 
 ## Software Platform
 
