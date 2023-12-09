@@ -6,6 +6,15 @@ For this project, we built an RC surveillance vehicle. The vehicle has a rotatin
 ### Demo Video
 https://youtu.be/EQbsywy5lTs
 ## Hardware Platform
+
+**block diagram of hardware**
+
+<img src="./Pictures/block diagram.png" style="zoom:33%;" />
+
+**schematic**
+
+<img src="./Pictures/schematic.png" style="zoom:33%;" />
+
 ## Software Platform
 
 **Controller signals to Pi:**
