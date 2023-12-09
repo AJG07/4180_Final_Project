@@ -11,7 +11,7 @@ https://youtu.be/EQbsywy5lTs
 
 <img src="./Pictures/block diagram.png" style="zoom:33%;" />
 
-**physical design**
+**schematic**
 
 <img src="./Pictures/schematic.png" style="zoom:33%;" />
 
