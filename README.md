@@ -15,6 +15,9 @@ the **Xbox** establishes a connection to the user's laptop via a 2.4G connection
 
 The C++ server on the Raspberry Pi receives string data sent by the user via TCP. It parses the numerical values from the received string data. As MBED can only handle data of type `char`, the Raspberry Pi encodes the float values, such as -1 to -1, within the range of signed char (-128 to 127). These encoded values are then transmitted to the MBED via a serial port. The MBED receives the signed char data, decodes it, and controls the motor and servo based on the decoded information.
 
+**Mbed Software:**
+The Mbed code uses the RTOS with threads and the Mbed I/O APIs to realize the functions of the robot. In the first thread, Mbed communicates with the Pi and keeps getting three characters from Pi every 0.03 seconds. It parses the three signed characters into 2 floats (left motor speed and right motor speed) and 1 integer (1 indicates the camera should rotate right, -1  indicates camera rotate left and 0 indicates the camera should do nothing). The second thread uses a sonar to get distance every 0.2 seconds. The third thread checks if the distance is too close (less than 15 cm) every 0.2 seconds and makes the speaker alert  if so. The fourth thread updates the position of the Servo motor every 0.2 seconds. The main function sets the speaker frequency to 500hz.
+
 **Video Part:**
 
 The Raspberry Pi captures video data from the camera and broadcasts the video stream online. Users can access a URL to view real-time video data.
