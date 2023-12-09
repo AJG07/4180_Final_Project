@@ -35,13 +35,19 @@ A short demo of this project can be seen on [youtube](https://youtu.be/EQbsywy5l
 
 ### Hardware Block Diagram
 
+The project uses both a Raspberry Pi and an Mbed microcontroller. The Pi is responsible for communicating directly with the user PC over WiFi, receiving commands from the controller and sending the camera video stream. The Pi is then connected to the Mbed through a USB serial connection, where the Pi will forward the commands from the controller to the Mbed. The Mbed is then responsible for controlling all of the IO devices. The motors, speaker, and servo all use PWM while the Sonar takes advantage of one DigitalOut and one DigitalIn pin in combination with a timer to detect distance.
+
 <img src="./Pictures/block diagram.png" style="zoom:33%;" />
 
 ### Hardware Schematic
 
-<img src="./Pictures/schematic.png" style="zoom:33%;" />
+The wiring for the Mbed IO devices can be seen in the following diagram. 
 
-audio system and lidar wiring : connect the positive terminal of the speaker to 5 volts. Connect the base of the 2N3904 to the Mbed output pin using a 220 ohm resistor. Connect the negative terminal of the speaker to the collector of the  2N3904 and connect the emitter to the ground.
+For the audio system and lidar wiring, connect the positive terminal of the speaker to 5 volts. Connect the base of the 2N3904 to the Mbed output pin using a 220 ohm resistor. Connect the negative terminal of the speaker to the collector of the 2N3904 and connect the emitter to the ground.
+
+For the motor system, make sure that VM is plugged into the 5V supply, whereas VCC is plugged into the 3.3V power supply. Similarly, the servo should be plugged into the 5V power line.
+
+<img src="./Pictures/schematic.png" style="zoom:33%;" />
 
 ## Software Platform
 
@@ -49,18 +55,17 @@ audio system and lidar wiring : connect the positive terminal of the speaker to 
 
 ![](./Pictures/software.jpg)
 
-
 ### Handheld Controller to Pi
 
-the **Xbox** establishes a connection to the user's laptop via a 2.4G connection. The user utilizes a driver to acquire button information from the Xbox, where the values of **two joysticks** range from -1 to 1, and **two buttons** have binary states (pressed: 1, not pressed: 0). The driver processes the obtained Xbox information, logically interpreting user actions. The button values are then converted into a string and transmitted via TCP to the Raspberry Pi. The user sends data to the Pi at a rate of 30 transmissions per second.
+the **Xbox** establishes a connection to the user's laptop via a 2.4G connection. The user utilizes a driver to acquire button information from the Xbox, where the values of **two joysticks** range from -1 to 1, and **two buttons** have binary states (pressed: 1, not pressed: 0). The driver processes the obtained Xbox information, logically interpreting user actions. The button values are then converted into a string and transmitted via TCP to the Raspberry Pi. The user sends data to the Pi at a rate of 30 transmissions per second. It is crucial that the Pi and user are on the same WiFi network.
 
 ### Pi to Mbed
 
-The C++ server on the Raspberry Pi receives string data sent by the user via TCP. It parses the numerical values from the received string data. As MBED can only handle data of type `char`, the Raspberry Pi encodes the float values, such as -1 to -1, within the range of signed char (-128 to 127). These encoded values are then transmitted to the MBED via a serial port. The MBED receives the signed char data, decodes it, and controls the motor and servo based on the decoded information.
+The C++ server on the Raspberry Pi receives string data sent by the user via TCP. It parses the numerical values from the received string data. To simplify the data transfer, the Raspberry Pi encodes the float values, such as -1 to -1, within the range of `signed char` (-128 to 127). These encoded values are then transmitted to the Mbed via a serial port. The Mbed receives the signed char data, decodes it, and controls the motor and servo based on the decoded information. This allows the Mbed to only have to read 3 chars each transmission, with one char for each control, as opposed to multiple chars for each control.
 
 ### Video Streaming
 
-The Raspberry Pi captures video data from the camera and broadcasts the video stream online. Users can access a URL to view real-time video data.
+The Raspberry Pi captures video data from the camera and broadcasts the video stream online using a prebuilt library called `motion`. After starting the streaming service on the Pi, users can access a URL using any computer on the network to view real-time video data.
 
 ### Mbed to IO
 The Mbed code uses RTOS with threads and the Mbed I/O APIs to realize the functions of the robot. 
@@ -107,7 +112,7 @@ For the easiest setup, it is a good idea to use VNC to access the Pi. Additional
 
 [Raspberry Pi Set Network Priority](https://raspberrypi.stackexchange.com/questions/58304/how-to-set-wifi-network-priority)
 
-Server are performed within the Raspberry Pi. You can interact with the Pi using peripherals directly connected to it or utilize remote access methods like VNC Viewer. Ensure that the Raspbian OS is installed on your Pi by following the specific instructions available on the Raspberry Pi website.
+Server functions are performed within the Raspberry Pi. You can interact with the Pi using peripherals directly connected to it or utilize remote access methods like VNC Viewer. Ensure that the Raspbian OS is installed on your Pi by following the specific instructions available on the Raspberry Pi website.
 
 Ensure that the Pi and the user's laptop are on the same network. We have provided a **makefile** for the code. You can navigate to the folder and execute the `make` command directly to generate the required executable files. (Note: You need to modify the `server_ip` to the current IP address of the Raspberry Pi.)
 
