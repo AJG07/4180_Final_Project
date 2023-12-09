@@ -11,23 +11,32 @@ https://youtu.be/EQbsywy5lTs
 
 <img src="./Pictures/block diagram.png" style="zoom:33%;" />
 
-audio system and lidar wiring : connect the positive terminal of the speaker to 5 volts. Connect the base of the 2N3904 to the Mbed output pin using a 220 ohm resistor. Connect the negative terminal of the speaker to the collector of the  2N3904 and connect the emitter to the ground.
-
 **physical design**
 
 <img src="./Pictures/schematic.png" style="zoom:33%;" />
 
+audio system and lidar wiring : connect the positive terminal of the speaker to 5 volts. Connect the base of the 2N3904 to the Mbed output pin using a 220 ohm resistor. Connect the negative terminal of the speaker to the collector of the  2N3904 and connect the emitter to the ground.
+
 **parts used**
 
 Raspberry Pi 4 Model B
+
 Mbed LPC 1768
+
 DEPSTECH DW50 Webcam
+
 2x DAGU DG01D geared DC motors
+
 SparkFun TB6612FNG dual H-Bridge
+
 SparkFun shadow chassis
+
  2N3904 transistor
+ 
 SparkFun 8ohm 0.1W PCB speaker
+
 SparkFun HC-SR04 Sonar
+
 8BitDo Ultimate C 2.4G Wireless Controller
 
 
